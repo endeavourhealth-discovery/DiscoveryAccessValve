@@ -11,6 +11,7 @@
     <properties>
         <eds-security.version>1.4-SNAPSHOT</eds-security.version>
         <keycloak.version>3.0.0.Final</keycloak.version>
+        <user-manager.version>0.0.14-SNAPSHOT</user-manager.version>
     </properties>
 
     <dependencies>
@@ -28,18 +29,32 @@
         </dependency>
 
         <dependency>
-            <groupId>org.endeavourhealth.common</groupId>
-            <artifactId>security</artifactId>
-            <version>${eds-security.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.keycloak</groupId>
-            <artifactId>keycloak-tomcat8-adapter</artifactId>
-            <version>${keycloak.version}</version>
-            <scope>provided</scope>
+            <groupId>org.endeavourhealth.userManager</groupId>
+            <artifactId>UserModels</artifactId>
+            <version>${user-manager.version}</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.4.3</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 
 </project>
