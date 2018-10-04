@@ -5,7 +5,7 @@ of the associated web application API layer.
 
 Used to validated the application app_name against the security context userId, i.e. the Keycloak userId.
 
-##Deployment
+## Deployment
 The .jar file is deployed into the ${tomcat.home}/lib directory
 
 The web application context.xml file is updated with the valve class reference 
