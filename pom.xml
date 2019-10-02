@@ -8,10 +8,22 @@
     <artifactId>DiscoveryAccessValve</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.endeavourhealth</groupId>
+                <artifactId>discovery-versions</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <properties>
-        <eds-security.version>1.4-SNAPSHOT</eds-security.version>
-        <keycloak.version>3.0.0.Final</keycloak.version>
-        <user-manager.version>0.0.14-SNAPSHOT</user-manager.version>
+        <keycloak.version>4.8.3.Final</keycloak.version>
+        <eds-security.version>1.29-SNAPSHOT</eds-security.version>
+        <mysql.version>8.0.12</mysql.version>
     </properties>
 
     <dependencies>
@@ -29,14 +41,26 @@
         </dependency>
 
         <dependency>
-            <groupId>org.endeavourhealth.userManager</groupId>
-            <artifactId>UserModels</artifactId>
-            <version>${user-manager.version}</version>
+            <groupId>org.endeavourhealth.common</groupId>
+            <artifactId>security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>

@@ -3,7 +3,7 @@ package org.endeavourhealth;
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
 import org.apache.catalina.valves.ValveBase;
-import org.endeavourhealth.usermanagermodel.models.caching.UserCache;
+import org.endeavourhealth.common.security.usermanagermodel.models.caching.UserCache;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -60,9 +60,14 @@ public class DiscoveryAccessValve extends ValveBase {
                 isUserAllowedAccess = true;
             } else {
                 try {
+                    /*if (projectId == null) {
+                        projectId =
+                    }*/
                     logger.log(Level.INFO, "Checking in the cache for access");
                     logger.log(Level.INFO, "UserId " + userId + "; ProjectId " + projectId + "; appName " + appId);
                     isUserAllowedAccess = UserCache.getUserProjectApplicationAccess(userId, projectId, appId);
+                    logger.log(Level.INFO, "Checking user project entities");
+                    // isUserAllowedAccess = UserProjectEntity.getUserProjectEntities(userId);
 
                 } catch (Exception e) {
                     logger.log(Level.INFO, "Error: " + e.getMessage());
@@ -76,6 +81,7 @@ public class DiscoveryAccessValve extends ValveBase {
                 response.finishResponse();
             } else {
 
+                logger.log(Level.INFO, "Everything is fine...allowing it through");
                 //user allowed, continue valve pipeline
                 getNext().invoke(request, response);
             }
